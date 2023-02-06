@@ -5,6 +5,8 @@ use App\Repository\TicketRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TicketRepository::class)]
+#[ORM\Table(name: "tickets")]
+#[ORM\UniqueConstraint(name: "barcode_per_event", columns: ["event_id", "barcode"])]
 #[ORM\HasLifecycleCallbacks]
 class Ticket {
     #[ORM\Id]
@@ -59,6 +61,10 @@ class Ticket {
         return $this->updatedAt;
     }
 
+    public function getEvent(): ?Event {
+        return $this->event;
+    }
+
     public function setBarcode($pBarcode): Ticket {
         $this->barcode = $pBarcode;
 
@@ -75,6 +81,12 @@ class Ticket {
         $this->lastName = $pLastName;
 
         return $this;
+    }
+
+    public function setEvent(Event $event): Event {
+        $this->event = $event;
+
+        return $event;
     }
 
     #[ORM\PrePersist]

@@ -3,6 +3,7 @@
 namespace App\Dto\Response;
 
 use JMS\Serializer\Annotation as Serialization;
+use App\Dto\Response\TicketResponseDto;
 
 class EventWithTicketsResponseDto {
 
@@ -12,7 +13,7 @@ class EventWithTicketsResponseDto {
     public EventResponseDto $event;
 
     /**
-     * @Serialization\Type("Array<App\Dto\Response\TicketResponseDto>")
+     * @Serialization\Type("array<App\Dto\Response\TicketResponseDto>")
      */
     public array $tickets;
 }

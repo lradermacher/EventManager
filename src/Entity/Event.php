@@ -1,10 +1,13 @@
 <?php
 namespace App\Entity;
 
-use App\Repository\EventRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\EventRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
+#[ORM\Table(name: "events")]
 #[ORM\HasLifecycleCallbacks]
 class Event {
     #[ORM\Id]
@@ -28,10 +31,11 @@ class Event {
     private ?\DateTime $updatedAt = null;
 
     #[ORM\OneToMany(targetEntity: 'Ticket', mappedBy: 'event')]
-    private $tickets;
+    private Collection $tickets;
 
     public function __construct() {
         $this->updatedAt = new \DateTime();
+        $this->tickets = new ArrayCollection();
     }
 
     public function getId(): ?int {
@@ -58,7 +62,7 @@ class Event {
         return $this->updatedAt;
     }
 
-    public function getTickets(): array {
+    public function getTickets(): Collection {
         return $this->tickets;
     }
 

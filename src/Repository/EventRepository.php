@@ -25,12 +25,10 @@ class EventRepository extends ServiceEntityRepository {
     }
 
     /**
-     * @return Event
+     * @return void
      */
-    public function remove(Event $event): Event {
+    public function remove(Event $event): void {
         $this->entityManager->remove($event);
         $this->entityManager->flush();
-
-        return $event;
     }
 }

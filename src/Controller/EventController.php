@@ -9,17 +9,21 @@ use App\Controller\AbstractApiController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Dto\Response\Transformer\EventResponseDtoTransformer;
+use App\Dto\Response\Transformer\EventWithTicketsResponseDtoTransformer;
 
 class EventController extends AbstractApiController {
 
     private EventResponseDtoTransformer $eventResponseDtoTransformer;
+    private EventWithTicketsResponseDtoTransformer $eventWithTicketsResponseDtoTransformer;
     private EventRepository $eventRepository;
 
     public function __construct(
         EventResponseDtoTransformer $eventResponseDtoTransformer,
+        EventWithTicketsResponseDtoTransformer $eventWithTicketsResponseDtoTransformer,
         EventRepository $eventRepository
     ) {
         $this->eventResponseDtoTransformer = $eventResponseDtoTransformer;
+        $this->eventWithTicketsResponseDtoTransformer = $eventWithTicketsResponseDtoTransformer;
         $this->eventRepository = $eventRepository;
     }
 
@@ -55,7 +59,7 @@ class EventController extends AbstractApiController {
             return $this->respond('Event not found!', Response::HTTP_NOT_FOUND);
         }
 
-        $dto = $this->eventResponseDtoTransformer->transformFromObject($event);
+        $dto = $this->eventWithTicketsResponseDtoTransformer->transformFromObject($event);
 
         return $this->respond($dto);
     }

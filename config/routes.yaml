@@ -28,3 +28,34 @@ events_delete:
     methods: ['DELETE']
     requirements:
         eventId: '\d+'
+
+tickets_list:
+    path: /api/v1/tickets
+    controller: App\Controller\TicketController::listAction
+    methods: ['GET']
+
+tickets_get:
+    path: /api/v1/tickets/{ticketId}
+    controller: App\Controller\TicketController::getAction
+    methods: ['GET']
+    requirements:
+        ticketId: '\d+'
+
+tickets_create:
+    path: /api/v1/tickets
+    controller: App\Controller\TicketController::createAction
+    methods: ['POST']
+
+tickets_update:
+    path: /api/v1/tickets/{ticketId}
+    controller: App\Controller\TicketController::updateAction
+    methods: ['PATCH']
+    requirements:
+        ticketId: '\d+'
+
+tickets_delete:
+    path: /api/v1/tickets/{ticketId}
+    controller: App\Controller\TicketController::deleteAction
+    methods: ['DELETE']
+    requirements:
+        ticketId: '\d+'
