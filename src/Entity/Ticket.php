@@ -22,17 +22,17 @@ class Ticket {
     private ?string $lastName;
 
     #[ORM\Column(type: 'datetime')]
-    private ?DateTimeImmutable $createdAt = null;
+    private ?\DateTime $createdAt = null;
 
     #[ORM\Column(type: 'datetime')]
-    private ?DateTimeImmutable $updatedAt = null;
+    private ?\DateTime $updatedAt = null;
 
     #[ORM\ManyToOne(targetEntity: 'Event', inversedBy: 'tickets')]
     #[ORM\JoinColumn(name: 'event_id', nullable: false, referencedColumnName: 'id')]
     private $event;
 
     public function __construct() {
-        $this->updatedAt = new \DateTimeImmutable();
+        $this->updatedAt = new \DateTime();
     }
 
     public function getId(): int {
@@ -49,6 +49,14 @@ class Ticket {
 
     public function getLastName(): string {
         return $this->lastName;
+    }
+
+    public function getCreatedAt(): ?\DateTime {
+        return $this->createdAt;
+    }
+
+    public function getUpdatedAt(): ?\DateTime {
+        return $this->updatedAt;
     }
 
     public function setBarcode($pBarcode): Ticket {
@@ -71,6 +79,6 @@ class Ticket {
 
     #[ORM\PrePersist]
     public function setCreatedAtValue(): void {
-        $this->createdAt = new \DateTimeImmutable();
+        $this->createdAt = new \DateTime();
     }
 }

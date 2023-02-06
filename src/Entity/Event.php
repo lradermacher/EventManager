@@ -15,23 +15,23 @@ class Event {
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[Column(type: 'datetime')]
-    private ?DateTimeImmutable $date = null;
+    #[ORM\Column(type: 'datetime')]
+    private ?\DateTime $date = null;
 
     #[ORM\Column(length: 255)]
     private ?string $city = null;
 
     #[ORM\Column(type: 'datetime')]
-    private ?DateTimeImmutable $createdAt = null;
+    private ?\DateTime $createdAt = null;
 
     #[ORM\Column(type: 'datetime')]
-    private ?DateTimeImmutable $updatedAt = null;
+    private ?\DateTime $updatedAt = null;
 
     #[ORM\OneToMany(targetEntity: 'Ticket', mappedBy: 'event')]
     private $tickets;
 
     public function __construct() {
-        $this->updatedAt = new \DateTimeImmutable();
+        $this->updatedAt = new \DateTime();
     }
 
     public function getId(): ?int {
@@ -42,12 +42,24 @@ class Event {
         return $this->title;
     }
 
-    public function getDate(): ?DateTimeImmutable {
+    public function getDate(): ?\DateTime {
         return $this->date;
     }
 
     public function getCity(): ?string {
         return $this->city;
+    }
+
+    public function getCreatedAt(): ?\DateTime {
+        return $this->createdAt;
+    }
+
+    public function getUpdatedAt(): ?\DateTime {
+        return $this->updatedAt;
+    }
+
+    public function getTickets(): array {
+        return $this->tickets;
     }
 
     public function setTitle($pTitle): Event {
@@ -70,6 +82,6 @@ class Event {
 
     #[ORM\PrePersist]
     public function setCreatedAtValue(): void {
-        $this->createdAt = new \DateTimeImmutable();
+        $this->createdAt = new \DateTime();
     }
 }

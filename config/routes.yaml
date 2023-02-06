@@ -1,5 +1,30 @@
-controllers:
-    resource:
-        path: ../src/Controller/
-        namespace: App\Controller
-    type: attribute
+events_list:
+    path: /api/v1/events
+    controller: App\Controller\EventController::listAction
+    methods: ['GET']
+
+events_get:
+    path: /api/v1/events/{eventId}
+    controller: App\Controller\EventController::getAction
+    methods: ['GET']
+    requirements:
+        eventId: '\d+'
+
+events_create:
+    path: /api/v1/events
+    controller: App\Controller\EventController::createAction
+    methods: ['POST']
+
+events_update:
+    path: /api/v1/events/{eventId}
+    controller: App\Controller\EventController::updateAction
+    methods: ['PATCH']
+    requirements:
+        eventId: '\d+'
+
+events_delete:
+    path: /api/v1/events/{eventId}
+    controller: App\Controller\EventController::deleteAction
+    methods: ['DELETE']
+    requirements:
+        eventId: '\d+'
