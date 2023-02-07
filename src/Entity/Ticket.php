@@ -12,24 +12,24 @@ class Ticket {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private int $id;
 
     #[ORM\Column(length: 8)]
-    private ?string $barcode;
+    private string $barcode;
 
     #[ORM\Column(length: 50)]
-    private ?string $firstName;
+    private string $firstName;
 
     #[ORM\Column(length: 50)]
-    private ?string $lastName;
+    private string $lastName;
 
     #[ORM\Column(type: 'datetime')]
-    private ?\DateTime $createdAt = null;
+    private \DateTime $createdAt;
 
     #[ORM\Column(type: 'datetime')]
-    private ?\DateTime $updatedAt = null;
+    private \DateTime $updatedAt;
 
-    #[ORM\ManyToOne(targetEntity: 'Event', inversedBy: 'tickets')]
+    #[ORM\ManyToOne(targetEntity: 'App\Entity\Event', inversedBy: 'tickets')]
     #[ORM\JoinColumn(name: 'event_id', nullable: false, referencedColumnName: 'id')]
     private $event;
 
@@ -53,40 +53,40 @@ class Ticket {
         return $this->lastName;
     }
 
-    public function getCreatedAt(): ?\DateTime {
+    public function getCreatedAt(): \DateTime {
         return $this->createdAt;
     }
 
-    public function getUpdatedAt(): ?\DateTime {
+    public function getUpdatedAt(): \DateTime {
         return $this->updatedAt;
     }
 
-    public function getEvent(): ?Event {
+    public function getEvent(): Event {
         return $this->event;
     }
 
-    public function setBarcode($pBarcode): Ticket {
-        $this->barcode = $pBarcode;
+    public function setBarcode($barcode): self {
+        $this->barcode = $barcode;
 
         return $this;
     }
 
-    public function setFirstName($pFirstName): Ticket {
-        $this->firstName = $pFirstName;
+    public function setFirstName($firstName): self {
+        $this->firstName = $firstName;
 
         return $this;
     }
 
-    public function setLastName($pLastName): Ticket {
-        $this->lastName = $pLastName;
+    public function setLastName($lastName): self {
+        $this->lastName = $lastName;
 
         return $this;
     }
 
-    public function setEvent(Event $event): Event {
+    public function setEvent(?Event $event): self {
         $this->event = $event;
 
-        return $event;
+        return $this;
     }
 
     #[ORM\PrePersist]

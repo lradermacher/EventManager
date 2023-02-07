@@ -18,3 +18,4 @@
 1. Setup Test Database
     - run `php bin/console --env=test doctrine:database:create`
     - run `php bin/console --env=test doctrine:schema:create`
+    - run `php ./vendor/bin/phpunit`

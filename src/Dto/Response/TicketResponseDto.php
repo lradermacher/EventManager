@@ -29,5 +29,5 @@ class TicketResponseDto {
     /**
      * @Serialization\Type("DateTime<'Y-m-d H:i:s'>")
      */
-    public \DateTime $created;
+    public \DateTime $createdAt;
 }
