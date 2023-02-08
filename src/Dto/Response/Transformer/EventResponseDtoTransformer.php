@@ -16,9 +16,9 @@ class EventResponseDtoTransformer extends AbstractResponseDtoTransformer {
         $dto = new EventResponseDto();
         $dto->id = $event->getId();
         $dto->title = $event->getTitle();
-        $dto->date = $event->getDate();
+        $dto->date = $event->getDate()->format('Y-m-d H:i:s');
         $dto->city = $event->getCity();
-        $dto->createdAt = $event->getCreatedAt();
+        $dto->createdAt = $event->getCreatedAt()->format('Y-m-d H:i:s');
 
         return $dto;
     }

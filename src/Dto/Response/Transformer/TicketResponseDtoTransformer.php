@@ -18,7 +18,7 @@ class TicketResponseDtoTransformer extends AbstractResponseDtoTransformer {
         $dto->barcode = $ticket->getBarcode();
         $dto->firstName = $ticket->getFirstName();
         $dto->lastName = $ticket->getLastName();
-        $dto->createdAt = $ticket->getCreatedAt();
+        $dto->createdAt = $ticket->getCreatedAt()->format('Y-m-d H:i:s');
 
         return $dto;
     }

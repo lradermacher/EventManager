@@ -13,9 +13,11 @@
     - run `php bin/console doctrine:migrations:migrate `
 1. Start Application
     - run `symfony serve`
+1. Open browser and locate to `localhost:8000`
 
 ### Run Tests
 1. Setup Test Database
     - run `php bin/console --env=test doctrine:database:create`
     - run `php bin/console --env=test doctrine:schema:create`
+1. Run Tests
     - run `php ./vendor/bin/phpunit`

@@ -16,19 +16,19 @@ class EventType extends AbstractType {
         $builder
             ->add('title', TextType::class, [
                 'constraints' => [
-                    new NotNull()
+                    new NotNull(['message' => 'Please select a valid title;'])
                 ]
             ])
             ->add('date', DateTimeType::class, [
                 "widget" => 'single_text',
                 "data" => new \DateTime(),
                 'constraints' => [
-                    new NotNull()
+                    new NotNull(['message' => 'Please select a valid date;'])
                 ]
             ])
             ->add('city', TextType::class, [
                 'constraints' => [
-                    new NotNull()
+                    new NotNull(['message' => 'Please select a valid city;'])
                 ]
             ]);
     }

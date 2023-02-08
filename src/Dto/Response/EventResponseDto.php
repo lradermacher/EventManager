@@ -17,9 +17,9 @@ class EventResponseDto {
     public string $title;
 
     /**
-     * @Serialization\Type("DateTime<'Y-m-d H:i:s'>")
+     * @Serialization\Type("string")
      */
-    public \DateTime $date;
+    public string $date;
 
     /**
      * @Serialization\Type("string")
@@ -27,7 +27,7 @@ class EventResponseDto {
     public string $city;
 
     /**
-     * @Serialization\Type("DateTime<'Y-m-d H:i:s'>")
+     * @Serialization\Type("string")
      */
-    public \DateTime $createdAt;
+    public string $createdAt;
 }

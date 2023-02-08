@@ -59,3 +59,30 @@ tickets_delete:
     methods: ['DELETE']
     requirements:
         ticketId: '\d+'
+
+events_overview:
+        path: '/'
+        controller: App\Controller\EventController::overview
+        methods: ['GET']
+
+events_edit_view:
+        path: '/events/{eventId}'
+        controller: App\Controller\EventController::editView
+        methods: ['GET']
+        requirements:
+            eventId: '\d+'
+
+tickets_overview:
+        path: '/events/{eventId}/tickets'
+        controller: App\Controller\TicketController::overview
+        methods: ['GET']
+        requirements:
+            eventId: '\d+'
+
+tickets_edit_view:
+        path: '/events/{eventId}/tickets/{ticketId}'
+        controller: App\Controller\TicketController::editView
+        methods: ['GET']
+        requirements:
+            eventId: '\d+'
+            ticketId: '\d+'

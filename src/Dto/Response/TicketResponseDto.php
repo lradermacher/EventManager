@@ -2,6 +2,7 @@
 
 namespace App\Dto\Response;
 
+use App\Entity\Event;
 use JMS\Serializer\Annotation as Serialization;
 
 class TicketResponseDto {
@@ -27,7 +28,7 @@ class TicketResponseDto {
     public string $lastName;
 
     /**
-     * @Serialization\Type("DateTime<'Y-m-d H:i:s'>")
+     * @Serialization\Type("string")
      */
-    public \DateTime $createdAt;
+    public string $createdAt;
 }

@@ -1,0 +1,65 @@
+{# templates/blog/layout.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block headline %}
+	{{ data.event.title }} - Tickets
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <a href="{{ path('events_overview') }}">
+            <button class="btn btn-sm btn-primary px-3  float-end">
+                <i class="bi bi-arrow-90deg-left"></i>
+            </button>
+        </a>
+    </div>
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Barcode</th>
+				<th scope="col">First Name</th>
+				<th scope="col">Last Name</th>
+				<th scope="col">Event</th>
+				<th scope="col">Created</th>
+				<th scope="col"></th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for ticket in data.tickets %}
+				<tr>
+					<th scope="row">{{ ticket.id }}</th>
+					<td>{{ ticket.barcode }}</td>
+					<td>{{ ticket.firstName }}</td>
+					<td>{{ ticket.lastName }}</td>
+					<td>{{ data.event.title }}</td>
+					<td>{{ ticket.createdAt }}</td>
+					<td>
+                        <div class="d-flex justify-content-end">
+                            <button class="me-1 btn btn-sm btn-secondary w-auto" onclick="editTicket({{ data.event.id }}, {{ ticket.id }})">
+								<i class="bi bi-pencil-square"></i>
+							</button>
+							<button class="me-1 btn btn-sm btn-danger w-auto" onclick="deleteTicket({{ ticket.id }});">
+								<i class="bi bi-trash3"></i>
+							</button>
+						</div>
+					</td>
+				</tr>
+			{% endfor %}
+			<form method="POST" action="{{ path('tickets_create') }}" id="createTicketForm">
+                <input class="d-none" name="event" value="{{ data.event.id }}">
+				<tr class="">
+					<th class="border-bottom-0"></th>
+					<td class="border-bottom-0"><input name="barcode" class="form-control form-control-sm" placeholder="Barcode" type="text" required/></td>
+					<td class="border-bottom-0"><input name="firstName" class="form-control form-control-sm" placeholder="FirstName" type="text" required/></td>
+					<td class="border-bottom-0"><input name="lastName" class="form-control form-control-sm" placeholder="LastName" type="text" required/></td>
+					<td class="border-bottom-0"><input disabled name="disabledEvent" class="form-control form-control-sm" value="{{ data.event.title }}" type="text" required/></td>
+					<td class="border-bottom-0"></td>
+					<td class="border-bottom-0">
+						<button type="submit" class="btn btn-sm btn-success w-100">Add</button>
+					</td>
+				</tr>
+			</form>
+		</tbody>
+	</table>
+{% endblock %}
+

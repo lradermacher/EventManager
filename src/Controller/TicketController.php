@@ -4,23 +4,31 @@ namespace App\Controller;
 
 use App\Entity\Ticket;
 use App\Form\Type\TicketType;
+use App\Repository\EventRepository;
 use App\Repository\TicketRepository;
 use App\Controller\AbstractApiController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Dto\Response\Transformer\TicketResponseDtoTransformer;
+use App\Dto\Response\Transformer\EventWithTicketsResponseDtoTransformer;
 
 class TicketController extends AbstractApiController {
 
     private TicketResponseDtoTransformer $ticketResponseDtoTransformer;
+    private EventWithTicketsResponseDtoTransformer $eventWithTicketsResponseDtoTransformer;
     private TicketRepository $ticketRepository;
+    private EventRepository $eventRepository;
 
     public function __construct(
         TicketResponseDtoTransformer $ticketResponseDtoTransformer,
-        TicketRepository $ticketRepository
+        EventWithTicketsResponseDtoTransformer $eventWithTicketsResponseDtoTransformer,
+        TicketRepository $ticketRepository,
+        EventRepository $eventRepository
     ) {
         $this->ticketResponseDtoTransformer = $ticketResponseDtoTransformer;
+        $this->eventWithTicketsResponseDtoTransformer = $eventWithTicketsResponseDtoTransformer;
         $this->ticketRepository = $ticketRepository;
+        $this->eventRepository = $eventRepository;
     }
 
     public function listAction(Request $request): Response {
@@ -94,6 +102,38 @@ class TicketController extends AbstractApiController {
 
         $this->ticketRepository->remove($ticket);
 
-        return $this->respond(null);
+        return $this->respond('Deleted');
+    }
+
+    public function overview(Request $request): Response {
+        $eventId = $request->get('eventId');
+        $event = $this->eventRepository->findOneBy(['id' => $eventId]);
+
+        if (!$event) {
+            return $this->respond('Event not found!', Response::HTTP_NOT_FOUND);
+        }
+
+        $dto = $this->eventWithTicketsResponseDtoTransformer->transformFromObject($event);
+
+        return $this->render('tickets/index.html.twig', [
+            "data" => $dto
+        ]);
+    }
+
+    public function editView(Request $request): Response {
+        $eventId = $request->get('eventId');
+        $ticketId = $request->get('ticketId');
+        $ticket = $this->ticketRepository->findOneBy(['id' => $ticketId, 'event' => $eventId]);
+
+        if (!$ticket) {
+            return $this->respond('Ticket not found!', Response::HTTP_NOT_FOUND);
+        }
+
+        $dto = $this->ticketResponseDtoTransformer->transformFromObject($ticket);
+
+        return $this->render('tickets/edit.html.twig', [
+            "ticket" => $dto,
+            "eventId" => $eventId
+        ]);
     }
 }

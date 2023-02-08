@@ -98,6 +98,30 @@ class EventController extends AbstractApiController {
 
         $this->eventRepository->remove($event);
 
-        return $this->respond(null);
+        return $this->respond('Deleted');
+    }
+
+    public function overview(Request $request): Response {
+        $events = $this->eventRepository->findAll();
+        $dtos = $this->eventResponseDtoTransformer->transformFromObjects($events);
+
+        return $this->render('events/index.html.twig', [
+            "events" => $dtos
+        ]);
+    }
+    
+    public function editView(Request $request): Response {
+        $eventId = $request->get('eventId');
+        $event = $this->eventRepository->findOneBy(['id' => $eventId]);
+
+        if (!$event) {
+            return $this->respond('Event not found!', Response::HTTP_NOT_FOUND);
+        }
+
+        $dto = $this->eventResponseDtoTransformer->transformFromObject($event);
+
+        return $this->render('events/edit.html.twig', [
+            "event" => $dto
+        ]);
     }
 }

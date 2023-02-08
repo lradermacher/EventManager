@@ -96,9 +96,6 @@ class Event {
     public function removeTicket(Ticket $ticket): self {
         if ($this->tickets->contains($ticket)) {
             $this->tickets->removeElement($ticket);
-            if ($ticket->getEvent() === $this) {
-                $ticket->setEvent(null);
-            }
         }
 
         return $this;

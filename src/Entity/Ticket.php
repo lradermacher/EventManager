@@ -61,7 +61,7 @@ class Ticket {
         return $this->updatedAt;
     }
 
-    public function getEvent(): Event {
+    public function getEvent(): ?Event {
         return $this->event;
     }
 
@@ -83,7 +83,7 @@ class Ticket {
         return $this;
     }
 
-    public function setEvent(?Event $event): self {
+    public function setEvent(Event $event): self {
         $this->event = $event;
 
         return $this;

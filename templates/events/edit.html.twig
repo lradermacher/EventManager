@@ -1,0 +1,43 @@
+{# templates/blog/layout.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block headline %}
+	Event - {{ event.title }}
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <a href="{{ path('events_overview') }}">
+            <button class="btn btn-sm btn-primary px-3  float-end">
+                <i class="bi bi-arrow-90deg-left"></i>
+            </button>
+        </a>
+    </div>
+    <form action="{{ path('events_update', {eventId: event.id}) }}" id="updateEventForm">
+        <div class="row mb-4">
+            <div class="col-6">
+                <label for="disabledId" class="form-label">Id</label>
+                <input id="disabledId" type="text" disabled class="form-control" value="{{ event.id }}">
+            </div>
+            <div class="col-6">
+                <label for="title" class="form-label">Title</label>
+                <input required  id="title" type="text" name="title" class="form-control" value="{{ event.title }}">
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-6">
+                <label for="date" class="form-label">Date</label>
+                <input required id="date" type="datetime-local" name="date" class="form-control" value="{{ event.date }}">
+            </div>
+            <div class="col-6">
+                <label for="city" class="form-label">City</label>
+                <input required id="city" type="text" name="city" class="form-control" value="{{ event.city }}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button type="submit" class="px-4 float-end btn btn-success w-auto">Save</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}
+

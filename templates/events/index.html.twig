@@ -1,0 +1,48 @@
+{# templates/blog/layout.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block headline %}
+Events
+{% endblock %}
+{% block body %}
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Title</th>
+				<th scope="col">Date</th>
+				<th scope="col">City</th>
+				<th scope="col">Created</th>
+				<th scope="col"></th>
+			</tr>
+		</thead>
+		<tbody>
+		{% for event in events %}
+			<tr>
+				<th scope="row">{{ event.id }}</th>
+				<td>{{ event.title }}</td>
+				<td>{{ event.date }}</td>
+				<td>{{ event.city }}</td>
+				<td>{{ event.createdAt }}</td>
+				<td>
+				<div class="d-flex justify-content-end">
+					<button class="me-1 btn btn-sm btn-secondary w-auto" onclick="editEvent({{ event.id }})"><i class="bi bi-pencil-square"></i></button>
+					<button class="me-1 btn btn-sm btn-danger w-auto" onclick="deleteEvent({{ event.id }});"><i class="bi bi-trash3"></i></button>
+					<button class="ms-4 btn btn-sm btn-primary w-auto getTicketsButton" onclick="getEventTickets({{ event.id }})">Tickets</button>
+				</div>
+				</td>
+			</tr>
+		{% endfor %}
+			<form class="needs-validation" method="POST" action="{{ path('events_create') }}" id="createEventForm">
+				<tr class="">
+					<th class="border-bottom-0"></th>
+					<td class="border-bottom-0"><input data-bs-dismiss="alert" id="id="validationTicketTitle"" name="title" class="form-control form-control-sm" placeholder="Title" type="text" required/></td>
+					<td class="border-bottom-0"><input name="date" class="form-control form-control-sm" type="datetime-local" required/></td>
+					<td class="border-bottom-0"><input name="city" class="form-control form-control-sm" placeholder="City" type="text" required/></td>
+					<td class="border-bottom-0"></td>
+					<td class="border-bottom-0"><button type="submit" class="btn btn-sm btn-success w-100">Add</button></td>
+				</tr>
+			</form>
+		</tbody>
+	</table>
+{% endblock %}

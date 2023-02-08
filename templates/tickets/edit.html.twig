@@ -1,0 +1,43 @@
+{# templates/blog/layout.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block headline %}
+	Ticket - {{ ticket.barcode }}
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <a href="{{ path('tickets_overview', {eventId: eventId}) }}">
+            <button class="btn btn-sm btn-primary px-3 float-end">
+                <i class="bi bi-arrow-90deg-left"></i>
+            </button>
+        </a>
+    </div>
+    <form action="{{ path('tickets_update', {ticketId: ticket.id}) }}" id="updateTicketForm">
+        <div class="row mb-4">
+            <div class="col-6">
+                <label for="disabledId" class="form-label">Id</label>
+                <input required id="disabledId" type="text" disabled class="form-control" value="{{ ticket.id }}">
+            </div>
+            <div class="col-6">
+                <label for="barcode" class="form-label">Barcode</label>
+                <input required id="barcode" type="text" name="barcode" class="form-control" value="{{ ticket.barcode }}">
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-6">
+                <label for="firstName" class="form-label">First Name</label>
+                <input required id="firstName" type="text" name="firstName" class="form-control" value="{{ ticket.firstName }}">
+            </div>
+            <div class="col-6">
+                <label for="lastName" class="form-label">Last Name</label>
+                <input required id="lastName" type="text" name="lastName" class="form-control" value="{{ ticket.lastName }}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button type="submit" class="px-4 float-end btn btn-success w-auto">Save</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}
+
